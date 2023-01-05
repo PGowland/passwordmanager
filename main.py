@@ -43,7 +43,7 @@ def add_info():
                 data.update(new_data)
             with open("password_storage.json", 'w') as pass_doc:
                 json.dump(data, pass_doc, indent=4)
-        except FileNotFoundError:
+        except:
             with open("password_storage.json", 'w') as pass_doc:
                 json.dump(new_data, pass_doc, indent=4)
         website_entry.delete(0, END)
@@ -54,12 +54,16 @@ def add_info():
 
 def search_data():
     website = website_entry.get()
-    with open("password_storage.json", 'r') as pass_doc:
-        data = json.load(pass_doc)
-        messagebox.showinfo(title=website,
-                            message=f"Email/Username: {data[website]['Email/Username']}"
-                                    f"\nPassword: {data[website]['Password']}"
-                            )
+    try:
+        with open("password_storage.json", 'r') as pass_doc:
+            data = json.load(pass_doc)
+            messagebox.showinfo(title=website,
+                                message=f"Email/Username: {data[website]['Email/Username']}"
+                                        f"\nPassword: {data[website]['Password']}"
+                                )
+    except:
+        messagebox.showinfo(title="ERROR", message="Website not found")
+
 
     # ---------------------------- UI SETUP ------------------------------- #
 
